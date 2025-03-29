@@ -1,7 +1,7 @@
 import logging
 from typing import Optional
-from asyncpg import Pool
-from asyncpg import PostgresError
+
+from asyncpg import Pool, PostgresError
 
 from places.errors import NotFound, PsqlError
 
@@ -12,7 +12,9 @@ class ContentRepository:
     def __init__(self, db: Pool):
         self._db = db
 
-    async def get_places(self, category_id: Optional[int], limit: int, offset: int, locale: str):
+    async def get_places(
+        self, category_id: Optional[int], limit: int, offset: int, locale: str
+    ):
         try:
             category_ids = None
 
@@ -34,7 +36,9 @@ class ContentRepository:
                     logger.warning(f"Категория с id {category_id} не найдена")
                     raise NotFound(f"Категория с id {category_id} не найдена")
 
-                logger.info(f"Найденные категории для id {category_id}: {category_ids}")
+                logger.info(
+                    f"Найденные категории для id {category_id}: {category_ids}"
+                )
 
             query = """
                 SELECT c.id, c.type, c.priority, t.name, t.preview_photo_url,
