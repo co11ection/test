@@ -8,3 +8,7 @@ class InvalidToken(APIError):
 
 class NotFound(APIError):
     status = "not_found"
+
+
+class PsqlError(APIError):
+    status = "database error"
